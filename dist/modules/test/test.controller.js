@@ -47,6 +47,30 @@ class UserController {
                 next(new http_exception_1.default(error.status, error.message || 'Cannot get tests'));
             }
         });
+        this.getbyId = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const test = yield this.testService.getbyId(req.params.id);
+                res.status(200).json({
+                    message: 'success',
+                    data: test,
+                });
+            }
+            catch (error) {
+                next(new http_exception_1.default(error.status, error.message || 'Cannot get test'));
+            }
+        });
+        this.deletebyId = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const test = yield this.testService.deletebyId(req.params.id);
+                res.status(200).json({
+                    message: 'success',
+                    data: test,
+                });
+            }
+            catch (error) {
+                next(new http_exception_1.default(error.status, error.message || 'Cannot remove test'));
+            }
+        });
         this.initialiseRoutes();
     }
     initialiseRoutes() {
@@ -54,6 +78,12 @@ class UserController {
         this.router.get(`${this.path}`, 
         // isUserAuthenticated,
         this.get);
+        this.router.get(`${this.path}/:id`, 
+        // isUserAuthenticated,
+        this.getbyId);
+        this.router.delete(`${this.path}/:id`, 
+        // isUserAuthenticated,
+        this.deletebyId);
     }
 }
 exports.default = UserController;

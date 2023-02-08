@@ -30,6 +30,17 @@ class UserController implements Controller {
             // isUserAuthenticated,
             this.get
         );
+
+        this.router.get(
+            `${this.path}/:id`,
+            // isUserAuthenticated,
+            this.getbyId
+        );
+        this.router.delete(
+            `${this.path}/:id`,
+            // isUserAuthenticated,
+            this.deletebyId
+        );
     }
 
     private post = async (
@@ -70,6 +81,48 @@ class UserController implements Controller {
                 new HttpException(
                     error.status,
                     error.message || 'Cannot get tests'
+                )
+            );
+        }
+    };
+
+    private getbyId = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const test = await this.testService.getbyId(req.params.id);
+            res.status(200).json({
+                message: 'success',
+                data: test,
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot get test'
+                )
+            );
+        }
+    };
+
+    private deletebyId = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const test = await this.testService.deletebyId(req.params.id);
+            res.status(200).json({
+                message: 'success',
+                data: test,
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot remove test'
                 )
             );
         }

@@ -20,6 +20,22 @@ class UserService {
             throw error;
         }
     }
+
+    public async getbyId(id: string): Promise<Test | null> {
+        try {
+            return await this.test.findOne({ _id: id });
+        } catch (error: HttpException | any) {
+            throw new HttpException(404, 'Can not get the item');
+        }
+    }
+
+    public async deletebyId(id: string): Promise<Test | null> {
+        try {
+            return await this.test.findOneAndRemove({ _id: id });
+        } catch (error: HttpException | any) {
+            throw new HttpException(400, 'Can not remove the item');
+        }
+    }
 }
 
 export default UserService;

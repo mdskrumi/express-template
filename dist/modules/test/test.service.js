@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const test_model_1 = __importDefault(require("@/modules/test/test.model"));
+const http_exception_1 = __importDefault(require("@/utils/exceptions/http.exception"));
 class UserService {
     constructor() {
         this.test = test_model_1.default;
@@ -34,6 +35,26 @@ class UserService {
             }
             catch (error) {
                 throw error;
+            }
+        });
+    }
+    getbyId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this.test.findOne({ _id: id });
+            }
+            catch (error) {
+                throw new http_exception_1.default(404, 'Can not get the item');
+            }
+        });
+    }
+    deletebyId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield this.test.findOneAndRemove({ _id: id });
+            }
+            catch (error) {
+                throw new http_exception_1.default(400, 'Can not remove the item');
             }
         });
     }
