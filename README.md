@@ -1,6 +1,6 @@
 # Express API Template
 
-This is A Node js TypeScript Express framework backend with MongoDB as a database.
+This is a Node js, TypeScript and Express js framework backend with MongoDB as a database.
 
 ---
 
@@ -25,8 +25,6 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
     $ npm install npm -g
 
-###
-
 ### Yarn installation
 
 After installing node, this project will need yarn too, so just run the following command.
@@ -44,8 +42,8 @@ TBA
 
 ## Project installation
 
-    $ git clone https://github.com/mdskrumi/{project_name}.git
-    $ cd {project_name}
+    $ git clone https://github.com/mdskrumi/express-template.git
+    $ cd express-template
     $ yarn install
 
 ## Configure app environment
@@ -74,6 +72,10 @@ Available environments:
 ## Simple build for production
 
     $ yarn build
+
+## Generate new module
+
+    $ yarn g
 
 ## Project structure
 
