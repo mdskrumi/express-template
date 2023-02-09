@@ -12,7 +12,8 @@
         "start": "yarn dotenv -e .env.production node dist/index.js",
         "startwith:dev": "dotenv -e .env.development",
         "startwith:stg": "dotenv -e .env.staging",
-        "startwith:prod": "dotenv -e .env.production"
+        "startwith:prod": "dotenv -e .env.production",
+        "g": "plop --plopfile ./internals/generators/index.mjs"
     },
     "license": "MIT",
     "devDependencies": {
@@ -31,6 +32,7 @@
         "eslint": "^8.26.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
+        "plop": "^3.1.2",
         "prettier": "^2.7.1",
         "tsc-watch": "^5.0.3",
         "typescript": "^4.8.4"

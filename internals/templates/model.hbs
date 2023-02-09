@@ -1,0 +1,22 @@
+import { Schema, model } from 'mongoose';
+
+import {{ properCase  name }} from '@/modules/{{  name }}/{{  name }}.interface';
+import { {{ properCase  name }}Enum } from '@/modules/{{  name }}/{{  name }}.enum';
+
+const {{ properCase  name }}Schema = new Schema<{{ properCase  name }}>(
+    {
+        title: {
+            type: Schema.Types.String,
+            required: true,
+        },
+
+        type: {
+            type: Schema.Types.String,
+            enum: {{ properCase  name }}Enum,
+            default: {{ properCase  name }}Enum.{{ properCase  name }}Enum1,
+        },
+    },
+    { timestamps: true }
+);
+
+export default model<{{ properCase  name }}>('{{ properCase  name }}', {{ properCase  name }}Schema);

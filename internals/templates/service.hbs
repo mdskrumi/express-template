@@ -1,0 +1,41 @@
+import {{ properCase  name }}Model from '@/modules/{{   name }}/{{   name }}.model';Test
+import {{ properCase  name }} from '@/modules/{{   name }}/{{   name }}.interface';
+import HttpException from '@/utils/exceptions/http.exception';
+
+class UserService {
+    private {{   name }} = {{ properCase  name }}Model;
+
+    public async create({{   name }}: {{ properCase  name }}): Promise<{{ properCase  name }}> {
+        try {
+            return await this.{{   name }}.create({{   name }});
+        } catch (error: HttpException | any) {
+            throw error;
+        }
+    }
+
+    public async get(): Promise<{{ properCase  name }}[]> {
+        try {
+            return await this.{{   name }}.find();
+        } catch (error: HttpException | any) {
+            throw error;
+        }
+    }
+
+    public async getbyId(id: string): Promise<{{ properCase  name }} | null> {
+        try {
+            return await this.{{   name }}.findOne({ _id: id });
+        } catch (error: HttpException | any) {
+            throw new HttpException(404, 'Can not get the item');
+        }
+    }
+
+    public async deletebyId(id: string): Promise<{{ properCase  name }} | null> {
+        try {
+            return await this.{{   name }}.findOneAndRemove({ _id: id });
+        } catch (error: HttpException | any) {
+            throw new HttpException(400, 'Can not remove the item');
+        }
+    }
+}
+
+export default {{ properCase name }}Service;
