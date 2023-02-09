@@ -1,0 +1,132 @@
+import { Router, Request, Response, NextFunction } from 'express';
+import Controller from '@/utils/interfaces/controller.interface';
+
+import {{ properCase name }} from '@/modules/{{ name }}/{{ name }}.interface';
+import {{ properCase name }}Service from '@/modules/{{ name }}/{{ name }}.service';
+
+import validationMiddleware from '@/middleware/validation.middleware';
+import validate from '@/modules/{{ name }}/{{ name }}.validation';
+
+import HttpException from '@/utils/exceptions/http.exception';
+import { isUserAuthenticated } from '@/middleware/auth.middleware';
+
+class UserController implements Controller {
+    public path = '/{{ name }}';
+    public router = Router();
+    private {{ name }}Service = new {{ properCase name }}Service();
+
+    constructor() {
+        this.initialiseRoutes();
+    }
+
+    private initialiseRoutes(): void {
+        this.router.post(
+            `${this.path}`,
+            validationMiddleware(validate.post),
+            this.post
+        );
+        this.router.get(
+            `${this.path}`,
+            // isUserAuthenticated,
+            this.get
+        );
+
+        this.router.get(
+            `${this.path}/:id`,
+            // isUserAuthenticated,
+            this.getbyId
+        );
+        this.router.delete(
+            `${this.path}/:id`,
+            // isUserAuthenticated,
+            this.deletebyId
+        );
+    }
+
+    private post = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const requestBody = req.body as {{ properCase name }};
+            const {{ name }} = await this.{{ name }}Service.create(requestBody);
+            res.status(200).json({
+                message: 'success',
+                data: {{ name }},
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot create {{ name }}'
+                )
+            );
+        }
+    };
+
+    private get = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const {{ name }}s = await this.{{ name }}Service.get();
+            res.status(200).json({
+                message: 'success',
+                data: {{ name }}s,
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot get {{ name }}s'
+                )
+            );
+        }
+    };
+
+    private getbyId = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const {{ name }} = await this.{{ name }}Service.getbyId(req.params.id);
+            res.status(200).json({
+                message: 'success',
+                data: {{ name }},
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot get {{ name }}'
+                )
+            );
+        }
+    };
+
+    private deletebyId = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const {{ name }} = await this.{{ name }}Service.deletebyId(req.params.id);
+            res.status(200).json({
+                message: 'success',
+                data: {{ name }},
+            });
+        } catch (error: Error | any) {
+            next(
+                new HttpException(
+                    error.status,
+                    error.message || 'Cannot remove {{ name }}'
+                )
+            );
+        }
+    };
+}
+
+export default {{ properCase name }}Controller;

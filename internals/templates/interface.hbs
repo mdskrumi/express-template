@@ -1,0 +1,8 @@
+import { Document, Types } from 'mongoose';
+import { {{ properCase name }}Enum } from '@/modules/{{  name }}/{{  name }}.enum';
+
+export default interface {{ properCase name }} extends Document {
+    _id: Types.ObjectId;
+    title: string;
+    type?: {{ properCase name }}Enum;
+}
